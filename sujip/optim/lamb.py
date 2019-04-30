@@ -9,7 +9,7 @@ from torch.optim import Optimizer
 
 
 class LAMB(Optimizer):
-    r"""Implements Adam algorithm.
+    r"""Implements LAMB algorithm.
 
     It has been proposed in `Reducing BERT Pre-Training Time from 3 Days to 76 Minutes`_.
 

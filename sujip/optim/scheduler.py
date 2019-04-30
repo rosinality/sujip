@@ -349,19 +349,3 @@ class LRFinder(lr_scheduler._LRScheduler):
         with open(filename, 'w') as f:
             for lr, loss in zip(self.lrs, self.losses):
                 f.write('{},{}\n'.format(lr, loss))
-
-
-def get_scheduler(scheduler, **kwargs):
-    if scheduler not in kwargs:
-        kwargs[scheduler] = {}
-
-    if scheduler == 'lr_finder':
-        result = lambda optim: LRFinder(optim, **kwargs[scheduler])
-
-    elif scheduler == 'cycle':
-        result = lambda optim: CycleScheduler(optim, **kwargs[scheduler])
-
-    else:
-        result = None
-
-    return result
