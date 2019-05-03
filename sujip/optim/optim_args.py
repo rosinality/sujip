@@ -1,5 +1,6 @@
 from torch import optim
 
+from .adamw import AdamW
 from .qhadam import QHAdam
 from .lamb import LAMB
 
@@ -19,6 +20,32 @@ class AdamArgs:
             help='Adam momentum (b1, b2)',
         )
         parser.add_argument('--eps', type=float, default=1e-8, help='Adam epsilon')
+
+    @staticmethod
+    def get_args(args):
+        return {
+            'lr': args.lr,
+            'betas': args.betas,
+            'eps': args.eps,
+            'weight_decay': args.l2,
+        }
+
+
+class AdamWArgs:
+    @classmethod
+    def invoke(cls, args):
+        return lambda parameters: AdamW(parameters, **cls.get_args(args))
+
+    @staticmethod
+    def add_args(parser):
+        parser.add_argument(
+            '--betas',
+            nargs=2,
+            type=float,
+            default=[0.9, 0.999],
+            help='AdamW momentum (b1, b2)',
+        )
+        parser.add_argument('--eps', type=float, default=1e-8, help='AdamW epsilon')
 
     @staticmethod
     def get_args(args):
