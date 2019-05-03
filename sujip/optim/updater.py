@@ -8,12 +8,14 @@ class Updater:
         else:
             self.scheduler = None
 
-    def step(self):
+    def step(self, zero_grad=True):
         if self.scheduler is not None:
             self.scheduler.step()
 
         self.optimizer.step()
-        self.optimizer.zero_grad()
+
+        if zero_grad:
+            self.optimizer.zero_grad()
 
     @property
     def lr(self):
