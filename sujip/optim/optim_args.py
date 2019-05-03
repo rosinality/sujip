@@ -5,6 +5,28 @@ from .qhadam import QHAdam
 from .lamb import LAMB
 
 
+class SGDArgs:
+    @classmethod
+    def invoke(cls, args):
+        return lambda parameters: optim.SGD(parameters, **cls.get_args(args))
+
+    @staticmethod
+    def add_args(parser):
+        parser.add_argument('--momentum', type=float, default=0, help='SGD momentum')
+        parser.add_argument(
+            '--nesterov', type='store_true', default=False, help='Use nesterov momentum'
+        )
+
+    @staticmethod
+    def get_args(args):
+        return {
+            'lr': args.lr,
+            'momentum': args.momentum,
+            'nesterov': args.nesterov,
+            'weight_decay': args.l2,
+        }
+
+
 class AdamArgs:
     @classmethod
     def invoke(cls, args):
