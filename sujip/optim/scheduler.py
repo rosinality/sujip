@@ -292,6 +292,9 @@ class CycleScheduler:
         if self.momentum is not None:
             momentum = self.momentum_phase[self.phase].step()
 
+        else:
+            momentum = None
+
         for group in self.optimizer.param_groups:
             group['lr'] = lr
 
