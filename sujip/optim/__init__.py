@@ -4,7 +4,7 @@ from .qhadam import QHAdam
 from .scheduler import CycleAnnealScheduler, CycleScheduler
 
 from .scheduler_args import CycleSchedulerArgs, LRFinderArgs
-from .optim_args import AdamArgs
+from .optim_args import AdamArgs, AdamWArgs, LAMBArgs, QHAdamArgs
 
 
 SCHEDULER_REGISTRY = {'cycle': CycleSchedulerArgs, 'lr_find': LRFinderArgs}
@@ -35,7 +35,12 @@ def get_scheduler(args, name='sched', registry=SCHEDULER_REGISTRY):
     return _get_object(args, name=name, registry=registry)
 
 
-OPTIMIZER_REGISTRY = {'adam': AdamArgs}
+OPTIMIZER_REGISTRY = {
+    'adam': AdamArgs,
+    'adamw': AdamWArgs,
+    'lamb': LAMBArgs,
+    'qhadam': QHAdamArgs,
+}
 
 
 def add_optimizer_args(parser, name='optim', registry=OPTIMIZER_REGISTRY):
