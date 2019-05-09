@@ -321,7 +321,7 @@ class CycleScheduler:
 
 
 class LRFinder(lr_scheduler._LRScheduler):
-    def __init__(self, optimizer, lr_min, lr_max, step_size, linear=True):
+    def __init__(self, optimizer, lr_min, lr_max, step_size, linear=False):
         ratio = lr_max / lr_min
         self.linear = linear
         self.lr_min = lr_min
